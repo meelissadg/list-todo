@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<body>
+
+<div ng-app="">
+ 
+<p>Digite seu nome: </p> <input ng-model="name">
+
+<p>Bem-vindo ao seu To-Do-List {{name}}:</p>
+
+<ul>
+	<% @recipes.each do |recipe| %>
+	<li> <%= recipe %></li>
+	<%end%>
+</ul>
+
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope) {
+    $scope.name = "John Doe";
+});
+</script>
+
+
+
+
+</body>
+</html> 
