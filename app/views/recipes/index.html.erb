@@ -1,22 +1,141 @@
 <!DOCTYPE html>
+
 <html>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
 <body>
 
-<div ng-app="">
- 
-<p>Digite seu nome: </p> <input ng-model="name">
+    <div ng-app="">
+        <div class="container">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    
+                    <div class="navbar-header">
+                        <b class="navbar-brand">Sua ToDo List</b>
+                    </div>
 
-<p>Bem-vindo ao seu To-Do-List {{name}}:</p>
+                    <ul class="nav nav-tabs nav-justified">
+                        <li><a href="">Adicione Tarefas</a></li>
+                        <li><a href="">Tarefas Concluídas</a></li>
+                     </ul>
+        
 
-<ul>
-	<% @recipes.each do |recipe| %>
-	<li> <%= recipe %></li>
-	<%end%>
-</ul>
+                    
+                </div>
+            </nav>
+        
+
+            <section id="addtarefas">
+            
+                <div>
+                    <div class="panel panel-primary">
+                        <div class="panel-body"><b>Adicione suas tarefas:</b></div> 
+                </div>
 
 
+                <div class>
+                    <body ng-app="myApp" ng-controller="todoCtrl">
 
+
+                    <form class="form-inline" ng-submit="todoAdd()">
+                        <input class="form-control" type="text" ng-model="todoInput" size="50" placeholder="Digite a tarefa para add:">
+                        <button type="button" class="btn btn-info" ng-click="todoAdd()">Clique</button>
+                    </form>
+
+                    <br>
+
+                    <div ng-repeat="x in todoList" class="list-group-item">
+                        <input type="checkbox"  ng-model="x.done"> <span ng-bind="x.todoText"></span>
+                    </div>
+
+                    <br>
+
+                    <button type="button" class="btn btn-info" ng-click="remove()">Remover!</button>
+                    
+                </div>
+                <br>
+                    <script>
+                        var app = angular.module('myApp', []); 
+                        app.controller('todoCtrl', function($scope) {
+                        $scope.tarefasConcluidas = [];
+                        $scope.todoList = [{todoText:'Estudar Java', done:false}];
+                        
+
+                        $scope.todoAdd = function() {
+                            $scope.jaTa = 0;
+
+                            $scope.todoList.forEach(function(element) {
+                            if (element.todoText === $scope.todoInput.todoText) {
+                                $scope.jaTa = 1;
+                             } 
+                            }, this);
+
+                            if ( $scope.jaTa === 0) {
+                                $scope.todoList.push({todoText:$scope.todoInput, done:false});
+                            } else {
+                                alert("Opa! Essa ja foi adicionada!");
+                            }
+                           
+                            $scope.todoInput = "";
+                            };
+
+
+                        $scope.remove = function() {
+                            var oldList = $scope.todoList;
+                            $scope.todoList = [];
+                            
+
+                            angular.forEach(oldList, function(x) {
+                            
+                            
+                            if (!x.done) {
+                                $scope.todoList.push(x);
+
+                                
+                            }else{
+                                console.log(x.todoText);
+                                $scope.tarefasConcluidas.push(x);
+                               
+                            }
+                            
+                            });
+                            };
+                            });
+
+                    </script>
+                </body>
+                
+            </div>            
+            
+            </section>
+            
+
+
+            <div>
+                <div class="panel panel-primary">
+                    <div class="panel-body"><b>Tarefas Concluídas:</b></div> 
+                    
+                </div>
+                    <md-list-item  class="list-group-item" ng-repeat="tarefa in tarefasConcluidas">
+                            <p>{{tarefa.todoText}}</p>
+                    </md-list-item>
+                
+            </div>
+
+        
+
+       
+        </div>
+    </div>
 
 </body>
-</html> 
+</html>
