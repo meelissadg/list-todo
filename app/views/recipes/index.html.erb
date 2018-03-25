@@ -68,7 +68,7 @@
                         var app = angular.module('myApp', []); 
                         app.controller('todoCtrl', function($scope) {
                         $scope.tarefasConcluidas = [];
-                        $scope.todoList = [{todoText:'Estudar Java', done:false}];
+                        $scope.todoList = [{todoText:'Estudar Ruby', done:false}];
                         
 
                         $scope.todoAdd = function() {
@@ -132,10 +132,17 @@
                 
             </div>
 
-        
+            <ul>
+
+        <% @recipes.each do |recipe|%>
+            <p><%= tarefasNaoConcluidas(recipe) %></p>
+        <% end %>
+    </ul>
 
        
         </div>
+
+    
     </div>
 
 </body>
